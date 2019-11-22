@@ -74,7 +74,7 @@ public class HomeController extends BaseController {
 
     //成果小首页
     @RequestMapping("/AchievementHome")
-    public ModelAndView AchievementHome(Model model) {
+    public ModelAndView achievementHome(Model model) {
         //成果所有分类
         Result result1 = iTypeService.selectAllType();
         List<Type> typeList = (List<Type>) result1.getData();
@@ -113,7 +113,7 @@ public class HomeController extends BaseController {
 
     //专家小首页
     @RequestMapping(value = "/ExpertsHome")
-    public ModelAndView ExpertsHome(Model model) {
+    public ModelAndView expertsHome(Model model) {
         //所有专家分类
         Result result1 = iTypeService.selectAllType();
         List<Type> typeList = (List<Type>) result1.getData();
@@ -143,7 +143,7 @@ public class HomeController extends BaseController {
 
     //机构小首页
     @RequestMapping(value = "/OrganizationHome")
-    public ModelAndView OrganizationHome(Model model) {
+    public ModelAndView organizationHome(Model model) {
 
         //查询所有机构类别
         List<OrganizationType> list = (List<OrganizationType>) iOrganizationTypeService.selectAllOrganizationType().getData();
@@ -158,7 +158,7 @@ public class HomeController extends BaseController {
         model.addAttribute("organizationRankingList", organizationRankingList);
 
         //查询科研教学单位
-        Result result = iOrganizationService.selectOrganizationByType("科研教学", 1, 4);
+        Result result = iOrganizationService.selectOrganizationByType("科研教学", 1, 3);
         List<Organization> schoolList = (List<Organization>) result.getData();
         model.addAttribute("schoolList",schoolList);
 
@@ -167,7 +167,7 @@ public class HomeController extends BaseController {
 
     //供需首页数据
     @RequestMapping(value = "/SupplyHome")
-    public ModelAndView SupplyHome(Model model) {
+    public ModelAndView supplyHome(Model model) {
 
         //成果排行榜
         Result result = iAchievementService.rankingAchievement(1, 10);
@@ -196,7 +196,7 @@ public class HomeController extends BaseController {
 
     //政策首页
     @RequestMapping(value = "/PolicyHome")
-    public ModelAndView PolicyHome(Model model) {
+    public ModelAndView policyHome(Model model) {
         //新闻中心
         Result result1 = iAnnouncementService.selectAnnouncement("新闻中心", 1, 10);
         List<Announcement> NewsCenter = (List<Announcement>) result1.getData();
@@ -263,7 +263,7 @@ public class HomeController extends BaseController {
         if (organizationList != null) {
             model.addAttribute("msg", "查询成功！");
         } else {
-            model.addAttribute("msg", "查询成功！");
+            model.addAttribute("msg", "查询失敗！");
         }
         model.addAttribute("organizationList", organizationList);
         return new ModelAndView("Organization/OrganizationList");
@@ -353,7 +353,7 @@ public class HomeController extends BaseController {
             if (current >= b && size1 > 0) {//到达成果的最后一页，且数据量不足
                 //搜索机构
                 IPage<Organization> iPage2 = iOrganizationService.findName(findName, current, size1);
-                int c = (int) Math.ceil(iPage2.getTotal() / 20f);//机构页数
+//                int c = (int) Math.ceil(iPage2.getTotal() / 20f);//机构页数
                 //机构总数
                 model.addAttribute("OrganizationNumber", iPage2.getTotal());
                 model.addAttribute("findOrganization", iPage2.getRecords());
@@ -373,7 +373,7 @@ public class HomeController extends BaseController {
         model.addAttribute("TotalNumber", TotalNumber);
 
         //总条数/20,向上取整
-        model.addAttribute("TotalPages", Math.ceil(TotalNumber / 20));//总页数
+        model.addAttribute("TotalPages", Math.ceil(TotalNumber / 20f));//总页数
         model.addAttribute("Number", current);//当前页数
         model.addAttribute("findName", findName);//搜索关键字
         return new ModelAndView("findHome");

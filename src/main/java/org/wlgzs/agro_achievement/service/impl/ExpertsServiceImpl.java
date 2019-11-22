@@ -15,6 +15,7 @@ import org.wlgzs.agro_achievement.mapper.UserMapper;
 import org.wlgzs.agro_achievement.service.IExpertsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.wlgzs.agro_achievement.util.IoUtil;
 import org.wlgzs.agro_achievement.util.RandomNumberUtils;
 import org.wlgzs.agro_achievement.util.Result;
 import org.wlgzs.agro_achievement.util.ResultCode;
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * <p>
@@ -62,36 +64,28 @@ public class ExpertsServiceImpl extends ServiceImpl<ExpertsMapper, Experts> impl
         } else {
             return new Result(ResultCode.FAIL, "请先登录！");
         }
-        //文件处理（真实存储名）
         String realName = "";
-
-        String fileName = myFileName.getOriginalFilename();
-        //截取后缀名
-        String suffixName = fileName.substring(fileName.indexOf("."), fileName.length());
-
-        //生成实际储存的文件名（不能重复）
-        realName = RandomNumberUtils.getRandomFileName() + suffixName;
-        File path = new File(ResourceUtils.getURL("classpath:").getPath());
-        if(!path.exists()) {
-            System.out.println("不存在！");
-            path = new File("");
+        String str = "";
+//        String[] str = new String[myFileNames.length];
+        IoUtil ioUtil = new IoUtil();
+        if (!myFileName.getOriginalFilename().equals("")) {
+            String fileName = myFileName.getOriginalFilename();
+            if(fileName != null && !"".equals(fileName)){
+                String fileNameExtension = fileName.substring(fileName.indexOf("."), fileName.length());
+                // 生成实际存储的真实文件名
+                realName = UUID.randomUUID().toString() + fileNameExtension;
+                // "/upload"是你自己定义的上传目录
+                String videoUrl = "/HeadPortrait/" + realName;
+                System.out.println("12312=====" + videoUrl);
+                ioUtil.saveFile(myFileName, videoUrl);
+                str = request.getContextPath() + "/HeadPortrait/" + realName;
+            }else{
+                str = "/HeadPortrait/morende.jpg";
+            }
+        } else {
+            System.out.println("没有文件");
         }
-        File upload = new File(path.getAbsolutePath(),"static/HeadPortrait/");
-        if(!upload.exists()) {
-            upload.mkdirs();
-        }
-
-        // "/upload"是你自己定义的上传目录
-//                    String realPath = session.getServletContext().getRealPath("/upload");
-        File uploadFile = new File(upload.getPath(), realName);
-
-        //上传文件
-        try {
-            myFileName.transferTo(upload);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String str = request.getContextPath() + "/HeadPortrait/" + realName;
+        str = request.getContextPath() + "/HeadPortrait/" + realName;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime ldt = LocalDateTime.parse(time + " 00:00:00", formatter);
         experts.setExpertsBirth(ldt);
@@ -211,43 +205,65 @@ public class ExpertsServiceImpl extends ServiceImpl<ExpertsMapper, Experts> impl
 
     @Override
     public Result addAdminExperts(HttpSession session, HttpServletRequest request, String time, Experts experts, MultipartFile myFileName) throws FileNotFoundException {
-        //文件处理（真实存储名）
         String realName = "";
         String str = "";
-        String fileName = myFileName.getOriginalFilename();
-        if (fileName != null && !"".equals(fileName)) {
-            //截取后缀名
-            String suffixName = fileName.substring(fileName.indexOf("."), fileName.length());
-
-            //生成实际储存的文件名（不能重复）
-            realName = RandomNumberUtils.getRandomFileName() + suffixName;
-
-            File path = new File(ResourceUtils.getURL("classpath:").getPath());
-            if(!path.exists()) {
-                System.out.println("不存在！");
-                path = new File("");
+//        String[] str = new String[myFileNames.length];
+        IoUtil ioUtil = new IoUtil();
+        if (!myFileName.getOriginalFilename().equals("")) {
+            String fileName = myFileName.getOriginalFilename();
+            if(fileName != null && !"".equals(fileName)){
+                String fileNameExtension = fileName.substring(fileName.indexOf("."), fileName.length());
+                // 生成实际存储的真实文件名
+                realName = UUID.randomUUID().toString() + fileNameExtension;
+                // "/upload"是你自己定义的上传目录
+                String videoUrl = "/HeadPortrait/" + realName;
+                System.out.println("12312=====" + videoUrl);
+                ioUtil.saveFile(myFileName, videoUrl);
+                str = request.getContextPath() + "/HeadPortrait/" + realName;
+            }else{
+                str = "/HeadPortrait/morende.jpg";
             }
-            File upload = new File(path.getAbsolutePath(),"static/HeadPortrait/");
-            if(!upload.exists()) {
-                upload.mkdirs();
-            }
-
-
-            // "/upload"是你自己定义的上传目录
-//                    String realPath = session.getServletContext().getRealPath("/upload");
-            File uploadFile = new File(upload.getPath(), realName);
-
-
-            //上传文件
-            try {
-                myFileName.transferTo(upload);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            str = request.getContextPath() + "/HeadPortrait/" + realName;
         } else {
-            str = "/HeadPortrait/morende.jpg";
+            System.out.println("没有文件");
         }
+
+//        //文件处理（真实存储名）
+//        String realName = "";
+//        String str = "";
+//        String fileName = myFileName.getOriginalFilename();
+//        if (fileName != null && !"".equals(fileName)) {
+//            //截取后缀名
+//            String suffixName = fileName.substring(fileName.indexOf("."), fileName.length());
+//
+//            //生成实际储存的文件名（不能重复）
+//            realName = RandomNumberUtils.getRandomFileName() + suffixName;
+//
+//            File path = new File(ResourceUtils.getURL("classpath:").getPath());
+//            if (!path.exists()) {
+//                System.out.println("不存在！");
+//                path = new File("");
+//            }
+//            File upload = new File(path.getAbsolutePath(), "HeadPortrait/");
+//            if (!upload.exists()) {
+//                upload.mkdirs();
+//            }
+//
+//
+//            // "/upload"是你自己定义的上传目录
+////                    String realPath = session.getServletContext().getRealPath("/upload");
+//            File uploadFile = new File(upload.getPath(), realName);
+//
+//
+//            //上传文件
+//            try {
+//                myFileName.transferTo(upload);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            str = request.getContextPath() + "/HeadPortrait/" + realName;
+//        } else {
+//            str = "/HeadPortrait/morende.jpg";
+//        }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime ldt = LocalDateTime.parse(time + " 00:00:00", formatter);
@@ -266,14 +282,14 @@ public class ExpertsServiceImpl extends ServiceImpl<ExpertsMapper, Experts> impl
             experts.setExpertsBirth(ldt);
             experts.setPictureAddress(experts1.getPictureAddress());
             baseMapper.updateById(experts);
-            if(experts.getStatusCode().equals("3")){
+            if (experts.getStatusCode().equals("3")) {
                 User user = userMapper.selectById(experts.getUserId());
                 user.setUserLevel("3");
                 userMapper.updateById(user);
             }
-            return new Result(ResultCode.SUCCESS,"修改成功！",1, experts);
+            return new Result(ResultCode.SUCCESS, "修改成功！", 1, experts);
         }
-        return new Result(ResultCode.FAIL,"修改失败！");
+        return new Result(ResultCode.FAIL, "修改失败！");
     }
 
     @Override

@@ -78,11 +78,11 @@
     <a th:href="@{/achievement/selectAchieveByType}" class="cg-more">更多</a>
     <div class="imgs" >
         <div class="cg_pic" th:each="achievementTime : ${achievementTimeList}">
-            <img th:src="${achievementTime.pictureAddress}" alt="">
+            <img th:src="'/File/agro-achievement/'+${achievementTime.pictureAddress}" alt="">
             <a th:href="@{/achievement/achievementDetails(achievementId=${achievementTime.achievementId})}" th:text="${achievementTime.achievementName}" th:title="${achievementTime.achievementName}">玉米新品种 “衡玉1182” 河南省经营权预转让</a>
         </div>
         <div class="cg_pic" th:each="achievementRanking : ${achievementRankingList}">
-            <img th:src="${achievementRanking.pictureAddress}" alt="">
+            <img th:src="'/File/agro-achievement/'+${achievementRanking.pictureAddress}" alt="">
             <a th:href="@{/achievement/achievementDetails(achievementId=${achievementRanking.achievementId})}" th:text="${achievementRanking.achievementName}" th:title="${achievementRanking.achievementName}">玉米新品种 “衡玉1182” 河南省经营权预转让</a>
         </div>
     </div>

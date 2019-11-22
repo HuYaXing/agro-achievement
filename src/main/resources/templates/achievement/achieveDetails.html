@@ -32,6 +32,7 @@
             <li><i class="fa fa-forward" aria-hidden="true"></i><span>预期交易方式:</span><span>合作生产</span></li>
             <li><i class="fa fa-forward" aria-hidden="true"></i><span>技 术 水 平:</span><span>国际先进</span></li>
             <li><i class="fa fa-forward" aria-hidden="true"></i><span>预期交易价格:</span><span th:text="${achievement.expectedPrice}">——</span></li>
+            <li><i class="fa fa-forward" aria-hidden="true"></i><span>关键字:</span><span th:text="${achievement.achievementKey}">——</span></li>
         </ul>
     </div>
     <div class="introduce">
@@ -47,7 +48,7 @@
         </h4>
             <div class="imgkuang">
                 <ul th:each="achievementImg : ${achievementImg}">
-                    <li class="lii"><a href="#"><img th:src="${achievementImg}" style="height:200px"/></a></li>
+                    <li class="lii"><a href="#"><img th:src="'/File/agro-achievement/'+${achievementImg}" style="height:200px"/></a></li>
                 </ul>
             </div>
     </div>

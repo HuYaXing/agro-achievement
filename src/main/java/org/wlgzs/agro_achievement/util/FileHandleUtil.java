@@ -72,7 +72,9 @@ public class FileHandleUtil {
 
         File upload = new File(absolutePath, staticDir + fileDir);
         if(!upload.exists()) {
-            upload.mkdirs();
+            if(upload.mkdirs()){
+                System.out.println("成功");
+            }
         }
     }
 

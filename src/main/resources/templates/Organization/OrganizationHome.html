@@ -72,7 +72,7 @@
         </li>
         <li th:each="school : ${schoolList}">
             <div class="pic">
-                <img th:src="${school.organizationLogo}" alt="">
+                <img th:src="'/File/agro-achievement/'+${school.organizationLogo}" alt="">
             </div>
             <div class="wenzi">
                 <a href="" th:text="${school.organizationName}">中国农业大学</a><br>

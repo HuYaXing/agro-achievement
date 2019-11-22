@@ -1,4 +1,5 @@
 <!DOCTYPE html >
+<!DOCTYPE html >
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Page-Enter" content="progid:DXImageTransform.Microsoft.Slide(Duration=2)" />
@@ -74,7 +75,7 @@
         <div class="imgkuang">
             <ul>
                 <li class="lii" th:each="achievement : ${achievementList}">
-                    <a th:href="@{/achievement/achievementDetails(achievementId=${achievement.achievementId})}"><img th:src="${achievement.pictureAddress}" style="height:200px"/></a>
+                    <a th:href="@{/achievement/achievementDetails(achievementId=${achievement.achievementId})}"><img th:src="'/File/agro-achievement/'+${achievement.pictureAddress}" style="height:200px"/></a>
                 </li>
             </ul>
 

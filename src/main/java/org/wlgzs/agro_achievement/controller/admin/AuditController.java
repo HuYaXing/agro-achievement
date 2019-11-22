@@ -27,7 +27,7 @@ public class AuditController extends BaseController {
 
     //按审核状态查询成果
     @RequestMapping(value = "/AchievementStatusCode")
-    public ModelAndView AchievementStatusCode(Model model,@RequestParam(value = "current", defaultValue = "1") int current,
+    public ModelAndView achievementStatusCode(Model model,@RequestParam(value = "current", defaultValue = "1") int current,
                                               @RequestParam(value = "limit", defaultValue = "8") int limit,
                                               @RequestParam(name = "statusCode",defaultValue = "1") String statusCode){
         Result result = iAchievementService.AchievementStatusCode(statusCode,current,limit);
@@ -63,7 +63,7 @@ public class AuditController extends BaseController {
 
     //按审核状态查询需求
     @RequestMapping(value = "/DemandStatusCode")
-    public ModelAndView DemandStatusCode(Model model,@RequestParam(value = "current", defaultValue = "1") int current,
+    public ModelAndView demandStatusCode(Model model,@RequestParam(value = "current", defaultValue = "1") int current,
                                               @RequestParam(value = "limit", defaultValue = "8") int limit,
                                               @RequestParam(name = "statusCode",defaultValue = "1") String statusCode){
         Result result = iDemandService.selectDemandByCode(statusCode,current,limit);
@@ -100,7 +100,7 @@ public class AuditController extends BaseController {
 
     //按状态查询案例
     @RequestMapping(value = "/ExampleStatusCode")
-    public ModelAndView ExampleStatusCode(Model model,@RequestParam(value = "current", defaultValue = "1") int current,
+    public ModelAndView exampleStatusCode(Model model,@RequestParam(value = "current", defaultValue = "1") int current,
                                          @RequestParam(value = "limit", defaultValue = "8") int limit,
                                          @RequestParam(name = "statusCode",defaultValue = "1") String statusCode){
         Result result = iCaseService.selectExampleByCode(statusCode,current,limit);
@@ -128,14 +128,14 @@ public class AuditController extends BaseController {
     //审核案例
     @RequestMapping(value = "/auditExample")
     public ModelAndView auditExample(Model model,Integer exampleId,String statusCode){
-        Result result = iAuditService.auditExample(exampleId,statusCode);
+        iAuditService.auditExample(exampleId,statusCode);
         model.addAttribute("msg","审核成功");
         return new ModelAndView("redirect:/admin/ExampleStatusCode");
     }
 
     //按状态查询专家
     @RequestMapping(value = "/ExpertsStatusCode")
-    public ModelAndView ExpertsStatusCode(Model model,@RequestParam(value = "current", defaultValue = "1") int current,
+    public ModelAndView expertsStatusCode(Model model,@RequestParam(value = "current", defaultValue = "1") int current,
                                          @RequestParam(value = "limit", defaultValue = "8") int limit,
                                          @RequestParam(name = "statusCode",defaultValue = "1") String statusCode){
         Result result = iExpertsService.selectExpertsByCode(statusCode,current,limit);

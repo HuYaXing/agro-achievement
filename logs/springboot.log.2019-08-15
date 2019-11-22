@@ -1,0 +1,13 @@
+2019-08-15 08:06:17,700  INFO Version:21 - HV000001: Hibernate Validator 6.0.14.Final
+ 2019-08-15 08:06:28,154  INFO DruidDataSource:928 - {dataSource-1} inited
+ 2019-08-15 08:11:52,908  INFO Version:21 - HV000001: Hibernate Validator 6.0.14.Final
+ 2019-08-15 08:12:07,635  INFO DruidDataSource:928 - {dataSource-1} inited
+ 2019-08-15 08:14:11,873  INFO Version:21 - HV000001: Hibernate Validator 6.0.14.Final
+2019-08-15 08:14:21,510  INFO DruidDataSource:928 - {dataSource-1} inited
+2019-08-15 08:15:14,938  INFO Version:21 - HV000001: Hibernate Validator 6.0.14.Final
+2019-08-15 08:15:25,698  INFO DruidDataSource:928 - {dataSource-1} inited
+2019-08-15 08:29:06,942  INFO Version:21 - HV000001: Hibernate Validator 6.0.14.Final
+2019-08-15 08:29:22,751  INFO DruidDataSource:928 - {dataSource-1} inited
+2019-08-15 08:29:38,004  INFO DruidDataSource:1823 - {dataSource-1} closed
+2019-08-15 10:37:22,068  INFO Version:21 - HV000001: Hibernate Validator 6.0.14.Final
+2019-08-15 10:37:35,741  INFO DruidDataSource:928 - {dataSource-1} inited

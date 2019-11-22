@@ -1,0 +1,7 @@
+2019-08-22 09:55:26,435  INFO Version:21 - HV000001: Hibernate Validator 6.0.14.Final
+2019-08-22 09:55:41,568  INFO DruidDataSource:928 - {dataSource-1} inited
+2019-08-22 09:57:12,483  INFO DruidDataSource:1823 - {dataSource-1} closed
+2019-08-22 09:57:24,829  INFO Version:21 - HV000001: Hibernate Validator 6.0.14.Final
+2019-08-22 09:57:40,238  INFO DruidDataSource:928 - {dataSource-1} inited
+2019-08-22 10:26:13,266  INFO Version:21 - HV000001: Hibernate Validator 6.0.14.Final
+2019-08-22 10:26:26,049  INFO DruidDataSource:928 - {dataSource-1} inited

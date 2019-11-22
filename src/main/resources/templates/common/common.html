@@ -16,8 +16,8 @@
             <ul>
                 <li><a href="/LogUser/login">忘记密码?</a></li>
                 <li><a href="/LogUser/login">请注册</a></li>
-                <li><a th:if="${session.user==null}" href="/LogUser/login">登录</a></li>
-                <li><a th:if="${session.user!=null}" href="/LogUser/exit">退出</a></li>
+                <li><a th:if="${session.user==null}" th:href="@{/LogUser/toLogin}">登录</a></li>
+                <li><a th:if="${session.user!=null}" th:href="@{/LogUser/exit}">退出</a></li>
                 <li th:if="${session.user!=null}">欢迎：<span th:text="${session.user.userName}"></span></li>
                 <li th:if="${session.user!=null}"><a th:href="@{/UserManagement/toUserManagement}">个人中心</a></li>
                 <li th:if="${session.user==null}"><span></span></li>
@@ -41,7 +41,7 @@
                 <a th:href="@{/HomeController/AchievementHome}">成果展示</a>
                 <ul class="son">
                     <li><a th:href="@{/UserManagement/toUserManagement}" th:if="${session.user!=null}" href="/LogUser/login" title="成果发布">成果发布</a></li>
-                    <li><a th:href="@{/LogUser/login}" th:if="${session.user==null}"  title="成果发布">成果发布</a></li>
+                    <li><a th:href="@{/LogUser/toLogin}" th:if="${session.user==null}"  title="成果发布">成果发布</a></li>
                     <li><a th:href="@{/achievement/rankingAchievement}" title="优秀成果推荐">优秀成果推荐</a></li>
                 </ul>
             </li>

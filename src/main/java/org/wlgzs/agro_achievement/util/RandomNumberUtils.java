@@ -40,13 +40,13 @@ public class RandomNumberUtils {
      *@Description:生成6位随机数字
      */
     public String getNumber(int lenth){
-        String value = "";
+        StringBuffer value = new StringBuffer();
         Random random = new Random();
         for (int i = 0;i < lenth;i++){
             int gen = random.nextInt(5);
-            value = value + gen;
+            value.append(gen);
         }
-        return value;
+        return value.toString();
     }
     
     /**
@@ -75,12 +75,12 @@ public class RandomNumberUtils {
      */
     private  String printSet(Set set){ //打印set的方法
         Iterator iterator = set.iterator();
-        String value = "";
+        StringBuffer value = new StringBuffer();
         while (iterator.hasNext()) {
             //String ele = (String) iterator.next();
-            value += (String)iterator.next();
+            value.append(iterator.next());
         }
-        return value;
+        return value.toString();
     }
 
     /**
@@ -112,7 +112,7 @@ public class RandomNumberUtils {
         Date date = new Date();
         String str = simpleDateFormat.format(date);
         Random random = new Random();
-        int rannum = (int) (random.nextDouble() * (99999 - 10000 + 1)) + 10000;// 获取5位随机数
+        int rannum = (random.nextInt() * (99999 - 10000 + 1)) + 10000;// 获取5位随机数
         return rannum + str;// 当前时间
     }
 

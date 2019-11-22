@@ -13,6 +13,7 @@ import org.wlgzs.agro_achievement.mapper.OrganizationTypeMapper;
 import org.wlgzs.agro_achievement.service.IOrganizationService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.wlgzs.agro_achievement.util.IoUtil;
 import org.wlgzs.agro_achievement.util.RandomNumberUtils;
 import org.wlgzs.agro_achievement.util.Result;
 import org.wlgzs.agro_achievement.util.ResultCode;
@@ -24,6 +25,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * <p>
@@ -51,45 +53,35 @@ public class OrganizationServiceImpl extends ServiceImpl<OrganizationMapper, Org
             if (organizationType != null) {
                 organization.setOrganizationTypeId(organizationType.getOrganizationTypeId());
                 organization.setUserId(user.getUserId());
-                if (myFileName != null && !"".equals(myFileName.getOriginalFilename())) {
+                String realName = "";
+                String str = "";
+//        String[] str = new String[myFileNames.length];
+                IoUtil ioUtil = new IoUtil();
+                if (!myFileName.getOriginalFilename().equals("")) {
                     String fileName = myFileName.getOriginalFilename();
-
-                    //后缀名
-                    String suffixName = fileName.substring(fileName.indexOf("."), fileName.length());
-                    //生成实际储存的文件名（不能重复）
-                    String realName = RandomNumberUtils.getRandomFileName() + suffixName;
-
-                    File path = new File(ResourceUtils.getURL("classpath:").getPath());
-                    if(!path.exists()) {
-                        System.out.println("不存在！");
-                        path = new File("");
+                    if (fileName != null && !"".equals(fileName)) {
+                        String fileNameExtension = fileName.substring(fileName.indexOf("."), fileName.length());
+                        // 生成实际存储的真实文件名
+                        realName = UUID.randomUUID().toString() + fileNameExtension;
+                        // "/upload"是你自己定义的上传目录
+                        String videoUrl = "/OrganizationLogo/" + realName;
+                        System.out.println("12312=====" + videoUrl);
+                        ioUtil.saveFile(myFileName, videoUrl);
+                        str = request.getContextPath() + "/OrganizationLogo/" + realName;
                     }
-                    File upload = new File(path.getAbsolutePath(),"static/OrganizationLogo/");
-                    if(!upload.exists()) {
-                        upload.mkdirs();
-                    }
-
-                    // "/upload"是你自己定义的上传目录
-//                    String realPath = session.getServletContext().getRealPath("/upload");
-                    File uploadFile = new File(upload.getPath(), realName);
-
-                    //上传文件
-                    try {
-                        myFileName.transferTo(upload);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    String str = request.getContextPath() + "/OrganizationLogo/" + realName;
-                    organization.setOrganizationLogo(str);
+                } else {
+                    System.out.println("没有文件");
                 }
+
+                str = request.getContextPath() + "/OrganizationLogo/" + realName;
+                organization.setOrganizationLogo(str);
                 organization.setStatusCode("0");
                 baseMapper.insert(organization);
                 return new Result(ResultCode.SUCCESS, "添加成功！");
             }
-            return new Result(ResultCode.FAIL,"该类型不存在！");
+            return new Result(ResultCode.FAIL, "该类型不存在！");
         }
-        return new Result(ResultCode.FAIL,"添加失败！");
+        return new Result(ResultCode.FAIL, "添加失败！");
     }
 
     //删除机构
@@ -192,46 +184,63 @@ public class OrganizationServiceImpl extends ServiceImpl<OrganizationMapper, Org
     }
 
     @Override
-    public Result saveOrganization(HttpSession session,Organization organization, MultipartFile myFileName, HttpServletRequest request) throws FileNotFoundException {
+    public Result saveOrganization(HttpSession session, Organization organization, MultipartFile myFileName, HttpServletRequest request) throws FileNotFoundException {
         if (organization != null) {
+            String realName = "";
+            String str = "";
+//        String[] str = new String[myFileNames.length];
+            IoUtil ioUtil = new IoUtil();
             if (!myFileName.getOriginalFilename().equals("")) {
                 String fileName = myFileName.getOriginalFilename();
-
-                //后缀名
-                String suffixName = fileName.substring(fileName.indexOf("."), fileName.length());
-                //生成实际储存的文件名（不能重复）
-                String realName = RandomNumberUtils.getRandomFileName() + suffixName;
-
-                File path = new File(ResourceUtils.getURL("classpath:").getPath());
-                if(!path.exists()) {
-                    System.out.println("不存在！");
-                    path = new File("");
+                if (fileName != null && !"".equals(fileName)) {
+                    String fileNameExtension = fileName.substring(fileName.indexOf("."), fileName.length());
+                    // 生成实际存储的真实文件名
+                    realName = UUID.randomUUID().toString() + fileNameExtension;
+                    // "/upload"是你自己定义的上传目录
+                    String videoUrl = "/OrganizationLogo/" + realName;
+                    System.out.println("12312=====" + videoUrl);
+                    ioUtil.saveFile(myFileName, videoUrl);
+                    str = request.getContextPath() + "/OrganizationLogo/" + realName;
                 }
-                File upload = new File(path.getAbsolutePath(),"static/OrganizationLogo/");
-                if(!upload.exists()) {
-                    upload.mkdirs();
-                }
-
-
-                // "/upload"是你自己定义的上传目录
-//                    String realPath = session.getServletContext().getRealPath("/upload");
-                File uploadFile = new File(upload.getPath(), realName);
-
-
-                //上传文件
-                try {
-                    myFileName.transferTo(upload);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                String str = request.getContextPath() + "/OrganizationLogo/" + realName;
-                organization.setOrganizationLogo(str);
-                baseMapper.insert(organization);
-                return new Result(ResultCode.SUCCESS,"添加成功！");
+            } else {
+                System.out.println("没有文件");
             }
+
+
+//                String fileName = myFileName.getOriginalFilename();
+//
+//                //后缀名
+//                String suffixName = fileName.substring(fileName.indexOf("."), fileName.length());
+//                //生成实际储存的文件名（不能重复）
+//                String realName = RandomNumberUtils.getRandomFileName() + suffixName;
+//
+//                File path = new File(ResourceUtils.getURL("classpath:").getPath());
+//                if(!path.exists()) {
+//                    System.out.println("不存在！");
+//                    path = new File("");
+//                }
+//                File upload = new File(path.getAbsolutePath(), "OrganizationLogo/");
+//                if(!upload.exists()) {
+//                    upload.mkdirs();
+//                }
+//
+//
+//                // "/upload"是你自己定义的上传目录
+////                    String realPath = session.getServletContext().getRealPath("/upload");
+//                File uploadFile = new File(upload.getPath(), realName);
+//
+//
+//                //上传文件
+//                try {
+//                    myFileName.transferTo(upload);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+            organization.setOrganizationLogo(str);
+            baseMapper.insert(organization);
+            return new Result(ResultCode.SUCCESS, "添加成功！");
         }
-        return new Result(ResultCode.FAIL,"添加失败！");
+        return new Result(ResultCode.FAIL, "添加失败！");
     }
 
 

@@ -6,7 +6,7 @@ function adminContent() {
     return;
 }
 
-// 删除
+// 删除getElementsByTagName
 $(".deleteExample").on('click', function () {
     var parent = $(this).parent().parent();
     var exampleId = parent.children("td:nth-child(2)").text();

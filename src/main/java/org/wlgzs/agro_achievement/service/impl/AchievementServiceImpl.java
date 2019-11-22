@@ -3,6 +3,7 @@ package org.wlgzs.agro_achievement.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +17,7 @@ import org.wlgzs.agro_achievement.mapper.TypeMapper;
 import org.wlgzs.agro_achievement.service.IAchievementService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.wlgzs.agro_achievement.util.IoUtil;
 import org.wlgzs.agro_achievement.util.RandomNumberUtils;
 import org.wlgzs.agro_achievement.util.Result;
 import org.wlgzs.agro_achievement.util.ResultCode;
@@ -53,41 +55,22 @@ public class AchievementServiceImpl extends ServiceImpl<AchievementMapper, Achie
     public Result addAchievement(MultipartFile[] myFileNames, HttpSession session, HttpServletRequest request, Achievement achievement, String start_time, String end_time) throws FileNotFoundException {
         User user = (User) session.getAttribute("user");
         if (achievement != null) {
-            //文件处理（真实存储名）
             String realName = "";
-            //存放文件储存路径
             String[] str = new String[myFileNames.length];
-            for (int i = 0; i < myFileNames.length; i++) {
+            IoUtil ioUtil = new IoUtil();
+            for (int i = 0;i < myFileNames.length;i++){
                 if (!myFileNames[i].getOriginalFilename().equals("")) {
                     String fileName = myFileNames[i].getOriginalFilename();
-                    //截取后缀名
-                    String suffixName = fileName.substring(fileName.indexOf("."), fileName.length());
-
-                    //生成实际储存的文件名（不能重复）
-                    realName = RandomNumberUtils.getRandomFileName() + suffixName;
-
-                    File path = new File(ResourceUtils.getURL("classpath:").getPath());
-                    if(!path.exists()) {
-                        System.out.println("不存在！");
-                        path = new File("");
-                    }
-                    File upload = new File(path.getAbsolutePath(),"static/upload/");
-                    if(!upload.exists()) {
-                        upload.mkdirs();
-                    }
-
-
+                    String fileNameExtension = fileName.substring(fileName.indexOf("."), fileName.length());
+                    // 生成实际存储的真实文件名
+                    realName = UUID.randomUUID().toString() + fileNameExtension;
                     // "/upload"是你自己定义的上传目录
-//                    String realPath = session.getServletContext().getRealPath("/upload");
-                    File uploadFile = new File(upload.getPath(), realName);
-
-                    //上传文件
-                    try {
-                        myFileNames[i].transferTo(upload);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    String videoUrl = "/upload/" + realName;
+                    System.out.println("12312====="+videoUrl);
+                    ioUtil.saveFile(myFileNames[i],videoUrl);
                     str[i] = request.getContextPath() + "/upload/" + realName;
+                }else{
+                    System.out.println("没有文件");
                 }
             }
 
@@ -336,44 +319,63 @@ public class AchievementServiceImpl extends ServiceImpl<AchievementMapper, Achie
     @Override
     public Result saveAchievement(HttpSession session, MultipartFile[] myFileNames, HttpServletRequest request, Achievement achievement, String start_time, String end_time) throws FileNotFoundException {
         if (achievement != null) {
-            //文件处理（真实存储名）
             String realName = "";
-            //存放文件储存路径
             String[] str = new String[myFileNames.length];
-            for (int i = 0; i < myFileNames.length; i++) {
+            IoUtil ioUtil = new IoUtil();
+            for (int i = 0;i < myFileNames.length;i++){
                 if (!myFileNames[i].getOriginalFilename().equals("")) {
                     String fileName = myFileNames[i].getOriginalFilename();
-                    //截取后缀名
-                    String suffixName = fileName.substring(fileName.indexOf("."), fileName.length());
-
-                    //生成实际储存的文件名（不能重复）
-                    realName = RandomNumberUtils.getRandomFileName() + suffixName;
-                    System.out.println("realName=" + realName);
-                    System.out.println("suffixName=" + suffixName);
-                    File path = new File(ResourceUtils.getURL("classpath:").getPath());
-                    if(!path.exists()) {
-                        System.out.println("不存在！");
-                        path = new File("");
-                    }
-                    File upload = new File(path.getAbsolutePath(),"static/upload/");
-                    if(!upload.exists()) {
-                        upload.mkdirs();
-                    }
-
-
+                    String fileNameExtension = fileName.substring(fileName.indexOf("."), fileName.length());
+                    // 生成实际存储的真实文件名
+                    realName = UUID.randomUUID().toString() + fileNameExtension;
                     // "/upload"是你自己定义的上传目录
-//                    String realPath = session.getServletContext().getRealPath("/upload");
-                    File uploadFile = new File(upload.getPath(), realName);
-
-                    //上传文件
-                    try {
-                        myFileNames[i].transferTo(uploadFile);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    String videoUrl = "/upload/" + realName;
+                    System.out.println("12312====="+videoUrl);
+                    ioUtil.saveFile(myFileNames[i],videoUrl);
                     str[i] = request.getContextPath() + "/upload/" + realName;
+                }else{
+                    System.out.println("没有文件");
                 }
             }
+
+            //文件处理（真实存储名）
+//            String realName = "";
+//            //存放文件储存路径
+//            String[] str = new String[myFileNames.length];
+//            for (int i = 0; i < myFileNames.length; i++) {
+//                if (!myFileNames[i].getOriginalFilename().equals("")) {
+//                    String fileName = myFileNames[i].getOriginalFilename();
+//                    //截取后缀名
+//                    String suffixName = fileName.substring(fileName.indexOf("."), fileName.length());
+//
+//                    //生成实际储存的文件名（不能重复）
+//                    realName = RandomNumberUtils.getRandomFileName() + suffixName;
+//                    System.out.println("realName=" + realName);
+//                    System.out.println("suffixName=" + suffixName);
+//                    File path = new File(ResourceUtils.getURL("classpath:").getPath());
+//                    if(!path.exists()) {
+//                        System.out.println("不存在！");
+//                        path = new File("");
+//                    }
+//                    File upload = new File(path.getAbsolutePath(),"static/upload/");
+//                    if(!upload.exists()) {
+//                        upload.mkdirs();
+//                    }
+//
+//
+//                    // "/upload"是你自己定义的上传目录
+////                    String realPath = session.getServletContext().getRealPath("/upload");
+//                    File uploadFile = new File(upload.getPath(), realName);
+//
+//                    //上传文件
+//                    try {
+//                        myFileNames[i].transferTo(uploadFile);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    str[i] = request.getContextPath() + "/upload/" + realName;
+//                }
+//            }
 
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < str.length; i++) {

@@ -12,13 +12,6 @@
 <body>
 <div th:include="common/common :: header"></div>
 <!--主题-->
-<div class="current">
-    <ul class="tab">
-        <li>空间首页</li>
-        <li>科技成果</li>
-        <li>拥有专家</li>
-    </ul>
-</div>
 <div class="me_con">
     <div class="me_left" >
         <div class="center">
@@ -28,7 +21,7 @@
             <img th:src="@{/images/person.png}" alt="">
         </div>
         <div th:if="${organization.organizationLogo} != null" class="img_bian">
-            <img th:src="${organization.organizationLogo}" alt="">
+            <img th:src="'/File/agro-achievement/'+${organization.organizationLogo}" alt="">
         </div>
         <div class="me_details">
             <div>所在地区：<span th:text="${organization.organizationRegion}">---</span></div>

@@ -23,3 +23,8 @@
 /nbdist/
 /.nb-gradle/
 /build/
+/src/main/resources/rebel-remote.xml
+/src/main/resources/rebel.xml
+/mvnw.cmd
+/mvnw
+/.gitignore

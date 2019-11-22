@@ -5,7 +5,7 @@ public enum ResultCode {
     FAIL(-1,"操作失败"),
     ADMIN(1,"管理员"),
     EXPERT(2,"专家");
-    public int code;
+    private int code;
     private String msg;
 
     ResultCode(int code, String msg) {

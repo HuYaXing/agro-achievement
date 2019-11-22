@@ -21,7 +21,7 @@
     <span th:if="${expertsList.size()} <= 0" style="color: #FF0000;font-weight: 800">数据暂不存在！</span>
     <ul>
         <li th:each="expert : ${expertsList}">
-            <img th:src="${expert.pictureAddress}"  alt="">
+            <img th:src="'/File/agro-achievement/'+${expert.pictureAddress}"  alt="">
             <div class="zj_js">
                 <a th:href="@{/HomeController/expertsDetails(expertsId=${expert.expertsId})}"><sapn th:text="${expert.expertsName}">王毅</sapn></a><br>
                 <span>研究方向：</span><span th:text="${expert.researchField}" class="intro">生物技术与种质资源创新；药用</span><br>

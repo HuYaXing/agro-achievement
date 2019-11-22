@@ -4,11 +4,13 @@ logging:
   level:
     com.baomidou.mybatisplus.samples: debug
 spring:
+  resources:
+    static-locations: classpath:static/,file:static/
   datasource:
     name: mysql
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      filter: stat
+#      filter: stat
       url: jdbc:mysql://119.23.10.167:3306/agro-achievement?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=true
       username: root
       password: Hyx@_123
@@ -41,13 +43,19 @@ spring:
           protocol: smtp
           #发送者的邮箱账号
           username: huystar@126.com
-  resources:
-  static-locations: classpath:static/,file:static/
+  thymeleaf:
+    cache: false
+    mode: HTML5
+    encoding: UTF-8
+    prefix: classpath:/templates/
+    suffix: .html
+    servlet:
+      content-type: text/html
 
 #mybatis plus配置
 mybatis-plus:
   #由于本例中采用注解方式编写sql，故而此处可不配置
-  #mapper-locations: classpath:/mapper/*Mapper.xml
+#  mapper-locations: classpath:/mapper/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
   type-aliases-package: org.wlgzs.agro_achievement
   #枚举扫描配置（本示例未使用到）

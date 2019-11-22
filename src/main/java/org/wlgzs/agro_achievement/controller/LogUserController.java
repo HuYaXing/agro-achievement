@@ -1,5 +1,7 @@
 package org.wlgzs.agro_achievement.controller;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +14,7 @@ import org.wlgzs.agro_achievement.util.ResultCode;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.net.URI;
 
 /**
  * @author:胡亚星
@@ -25,7 +28,7 @@ public class LogUserController extends BaseController {
     //去登录
     @RequestMapping(value = "/toLogin")
     public ModelAndView toLogin() {
-        return new ModelAndView("/login");
+        return new ModelAndView("login");
     }
 
     //去注册
@@ -42,8 +45,8 @@ public class LogUserController extends BaseController {
      * @param password
      * @return
      */
-    @RequestMapping(value = "/login")
-    public ModelAndView login(Model model, HttpServletRequest request, String userName, String password) {
+    @RequestMapping(value = "/userlogin")
+    public ModelAndView userlogin(Model model, HttpServletRequest request, String userName, String password) {
         Result result = loginService.login(request, userName, password);
         int code = result.getCode();
         if (code == 1) {//管理员登录

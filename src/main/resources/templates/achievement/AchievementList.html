@@ -15,7 +15,7 @@
 <!--主体-->
 <div class="current">
     <i class="fa fa-map-marker" aria-hidden="true"></i>
-    <a th:href="@{/HomeController/home}" style="margin-left: 10px;">首页</a> >><a th:href="@{/HomeController/AchievementHome}">成果展示</a> >><a th:href="@{/achievement/rankingAchievement}">列表展示</a>
+    <a th:href="@{/HomeController/home}" style="margin-left: 10px;">首页</a> <a th:href="@{/HomeController/AchievementHome}">成果展示</a> >><a th:href="@{/achievement/rankingAchievement}">列表展示</a>
 </div>
 <div class="cg-title">
     <img th:src="@{/images/san_lie_06.jpg}" alt="">
@@ -50,10 +50,10 @@
         <!--//请求页数-1-->
         <li th:each="i:${#numbers.sequence(1,TotalPages)}">
             <!--//从1到总页数遍历，并赋值给i    TotalPages&ndash;&gt;总页数-->
-            <a th:if="${i > Number-3} and ${i < Number+3} and ${i == Number}" class="active" href="javascript:;"
+            <a th:if="${i > Number - 3} and ${i < Number+3} and ${i == Number}" class="active" href="javascript:;"
                th:text="${i}">#</a>
             <!--//限制显示页数的条数  4到6个页数   而且等于当前页，不能点击-->
-            <a th:if="${i > Number-3} and ${i < Number+3} and ${i != Number}"
+            <a th:if="${i > Number - 3} and ${i < Number+3} and ${i != Number}"
                th:href="@{/achievement/selectAllAchievement(current=${i})}" th:text="${i}">#</a>
             <!--//限制显示页数的条数  4到6个页数-->
         </li>

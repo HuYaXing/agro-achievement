@@ -23,7 +23,7 @@
             <h4><span  th:text="${experts.expertsName}"></span></h4>
         </div>
         <div class="img_bian">
-            <img th:src="${experts.pictureAddress}" alt="">
+            <img th:src="'/File/agro-achievement/'+${experts.pictureAddress}" alt="">
         </div>
         <div class="me_details">
             <div>所在单位：<span th:text="${experts.unit}">---</span></div>

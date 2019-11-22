@@ -59,13 +59,13 @@
     </div>
     <div class="right">
         <!--申请成为专家-->
-        <a  th:href="@{/UserManagement/toUserManagement}"><img th:src="@{/images/zj_03.jpg}" alt=""></a>
+        <a  th:href="@{/UserManagement/toUserManagement}"><img th:src="'/File/agro-achievement/'+@{/images/zj_03.jpg}" alt=""></a>
         <img th:src="@{/images/zj_04.jpg}" alt="">
         <!--推荐专家-->
         <div class="expert_one_people">
             <div class="erpert_picbox" th:each="recommend : ${recommendList}">
                 <div class="expert_picbox">
-                    <img th:src="${recommend.pictureAddress}" width="45" height="45">
+                    <img th:src="'/File/agro-achievement/'+${recommend.pictureAddress}" width="45" height="45">
                 </div>
                 <div class="expert_picex">
                     <a th:href="@{/HomeController/expertsDetails(expertsId=${recommend.expertsId})}" target="_blank" th:text="${recommend.expertsName}">康绍忠</a><br>
@@ -78,7 +78,7 @@
         <div class="expert_one_people">
             <div class="erpert_picbox" th:each="expertsTime : ${expertsTimeList}">
                 <div class="expert_picbox">
-                    <img th:src="${expertsTime.pictureAddress}" width="45" height="45">
+                    <img th:src="'/File/agro-achievement/'+${expertsTime.pictureAddress}" width="45" height="45">
                 </div>
                 <div class="expert_picex">
                     <a th:href="@{/HomeController/expertsDetails(expertsId=${expertsTime.expertsId})}" target="_blank" th:text="${expertsTime.expertsName}"></a><br>
